@@ -1,0 +1,121 @@
+/* Tailwind v4 */
+@import "tailwindcss";
+
+/* ===================== PALETA RENOV ===================== */
+/* Somente: laranja, fundo claro, cinzas e preto */
+:root{
+  --primary:    #ff6900;  /* laranja da marca */
+  --primary-600:#e65f00;  /* hover (mais escuro) */
+  --primary-700:#B57C64;  /* active (mantido como estava no seu arquivo) */
+
+  --muted:      #F4F7FF;  /* fundo de seções */
+
+  --black:      #111111;  /* texto principal */
+  --gray-700:   #374151;
+  --gray-600:   #4B5563;
+  --gray-400:   #9CA3AF;
+  --gray-300:   #D1D5DB;
+  --gray-200:   #E5E7EB;
+  --gray-100:   #F3F4F6;
+
+  --bg:         var(--gray-400);     /* fundo da página (mantido como estava) */
+  --fg:         var(--black);      /* texto padrão */
+  --border:     var(--gray-200);
+  --ring:       var(--primary);
+
+  --header-h:   96px;              /* usado no offset do scroll */
+}
+
+/* ajuda o navegador a considerar o header no scroll suave */
+html { scroll-padding-top: var(--header-h); }
+
+/* ===================== COMPONENTES ===================== */
+@layer components{
+  /* CTA laranja com texto branco (alto contraste) */
+  .btn-primary{
+    @apply inline-flex items-center justify-center px-5 py-3 rounded-xl font-semibold text-white shadow-sm transition-[transform,background-color] active:scale-95;
+    background-color: var(--primary-700);
+  }
+  .btn-primary:hover{ background-color: var(--primary-600); }
+  .btn-primary:active{ background-color: var(--primary-700); }
+
+  /* Botão secundário: contorno laranja, fundo branco, texto laranja */
+  .btn-secondary{
+    @apply inline-flex items-center justify-center px-5 py-3 rounded-xl font-semibold border transition-[transform,background-color,color] active:scale-95;
+    background-color: #fff;
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+  .btn-secondary:hover{
+    background-color: color-mix(in oklab, var(--primary) 8%, white);
+  }
+  .btn-secondary:active{
+    background-color: color-mix(in oklab, var(--primary) 14%, white);
+  }
+
+  /* offset da âncora p/ header sticky */
+  .scroll-mt-header { scroll-margin-top: var(--header-h); }
+
+  /* Cartão básico */
+  .card{
+    @apply rounded-2xl border bg-white;
+    border-color: var(--border);
+  }
+
+  /* ===== Nav link (maior, pill e sem underline) ===== */
+  .nav-link{
+    @apply inline-flex items-center font-semibold transition-[background-color,transform] rounded-full;
+    padding: 0.5rem 0.75rem;         /* deixa formato “pill” */
+    text-decoration: none;           /* remove underline */
+    color: var(--black);
+  }
+  .nav-link:hover{
+    background-color: color-mix(in oklab, var(--primary) 12%, white);
+    text-decoration: none;
+  }
+  .nav-link:active{ transform: translateY(0.5px) scale(.98); }
+}
+/* <-- fecha @layer components (estava faltando no seu arquivo) */
+
+/* ===================== UTILITÁRIAS ===================== */
+@layer utilities{
+  .text-brand   { color: var(--primary); }
+  .bg-brand     { background-color: var(--primary); }
+  .bg-muted     { background-color: var(--muted); }
+  .border-brand { border-color: var(--primary); }
+  .border-muted { border-color: var(--border); }
+  .ring-brand   { --tw-ring-color: var(--ring); }
+
+  a { color: var(--black); }
+  a:hover { text-decoration: underline; }
+
+  .no-scrollbar{
+    -ms-overflow-style: none; scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar{ display: none; }
+}
+
+/* ===================== UX GLOBAL ===================== */
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){ html { scroll-behavior: auto; } }
+
+/* Header translúcido */
+.header-gradient{
+  background: linear-gradient(180deg, #ffffff 0%, #ffffffcc 70%, #ffffff00 100%);
+  background-color: rgba(255,255,255,0.85);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* Foco acessível */
+:focus-visible{
+  outline: 3px solid color-mix(in oklab, var(--primary) 75%, white);
+  outline-offset: 2px;
+}
+
+/* Base do documento (sem dark mode) */
+body{
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Arial, Helvetica, sans-serif;
+}

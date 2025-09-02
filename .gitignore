@@ -1,0 +1,8 @@
+﻿node_modules/
+.next/
+out/
+dist/
+.cache/
+.turbo/
+*.log
+.env.local
